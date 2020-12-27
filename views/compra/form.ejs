@@ -1,0 +1,32 @@
+<% layout('../layout/modelo1') -%>
+<% block('titulo','Paciente') -%>
+
+<form action="/compra/nuevo" method="post">
+    <input type="text" name="proveedor" id="">
+    <input type="date" name="fecha" id="">
+    <br>
+    <div>
+        <select name="" id="producto">
+            <% for(i=0;i<productos.length;i++){%>
+            <option value="<%=productos[i]._id%>" ><%=productos[i].nombre  %></option>
+            <% }%>
+
+        </select>
+        <input type="number" name="" id="cant">
+        <input type="button" onclick="
+            document.getElementById('lista').innerHTML=
+            document.getElementById('id').value;
+        " value="añadir">
+
+        <table>
+            <tr>
+                <td id="lista"> </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <input type="Number" name="total" id="">
+
+</form>

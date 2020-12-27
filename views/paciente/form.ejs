@@ -1,0 +1,36 @@
+<% layout('../layout/modelo1') -%>
+<% block('titulo','Paciente') -%>
+<%
+var action = '';
+var boton = '';
+if(_id){
+    action='edit/'+_id;
+    boton='Editar';
+    %>Editar Paciente<%
+}
+else
+{
+    action='nuevo/';
+    boton='Crear';
+    %>Nuevo Paciente<%
+}
+%>
+<form action="/paciente/<%=action%>" method="post">
+    <input type="text" name="nombre" value="<%=nombre%>"  placeholder="Nombre">
+    <div style="color: brown;">
+        <%=error && error.errors['nombre']?error.errors['nombre'].message:''%>
+    </div>
+    <input type="text" name="apellidos"  value="<%=apellidos%>"  placeholder="Apellidos">
+    <div style="color: brown;">
+        <%=error && error.errors['apellidos']?error.errors['apellidos'].message:''%>
+    </div>
+    <input type="text" name="ci"  value="<%=ci%>"  placeholder="CI">
+    <div style="color: brown;">
+        <%=error && error.errors['ci']?error.errors['ci'].message:''%>
+    </div>
+    <input type="date" name="fechaNac"  value="<%=fechaNac%>"  placeholder="fecha nac">
+    <div style="color: brown;">
+        <%=error && error.errors['fechaNac']?error.errors['fechaNac'].message:''%>
+    </div>
+    <input type="submit" value="<%=boton%>">
+</form>

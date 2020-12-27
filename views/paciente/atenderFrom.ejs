@@ -1,0 +1,168 @@
+<% layout('../layout/modelo1') -%>
+<% block('titulo','Paciente') -%>
+
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle"
+                     src="/dist/img/user4-128x128.jpg"
+                     alt="User profile picture">
+              </div>
+
+              <h3 class="profile-username text-center"><%=nombre +' ' + apellidos%></h3>
+
+              <p class="text-muted text-center"><%= ci%></p>
+
+             
+             
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+          <!-- About Me Box -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">About Me</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+              <p class="text-muted">
+                B.S. in Computer Science from the University of Tennessee at Knoxville
+              </p>
+
+              <hr>
+
+              <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+              <p class="text-muted">Malibu, California</p>
+
+              <hr>
+
+              <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+              <p class="text-muted">
+                <span class="tag tag-danger">UI Design</span>
+                <span class="tag tag-success">Coding</span>
+                <span class="tag tag-info">Javascript</span>
+                <span class="tag tag-warning">PHP</span>
+                <span class="tag tag-primary">Node.js</span>
+              </p>
+
+              <hr>
+
+              <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header p-2">
+              <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Consulta</a></li>
+                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Historial</a></li>
+                
+              </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="active tab-pane" id="activity">
+                  <!-- Post -->
+                  <div class="post">
+                    <form action="/paciente/atender/<%=_id%>" method="post">
+                        <div class="user-block">
+                     
+                     
+                            <span class="description">Consulta del dia    </span>
+                        </div>
+                        <!-- /.user-block -->
+                        <p>
+                            Diagnostico
+                            <textarea name="diagnostico" id="" cols="30" rows="10"></textarea>
+                        </p>
+                        <p>Tratamiento:
+                            <textarea name="tratamiento" id="" cols="30" rows="10"></textarea>
+                        </p>
+                        peso
+                        <input type="number" name="peso" id="" min="10" step="0.1">
+                        <input type="submit" value="Enviar">
+                    </form>                    
+                  </div>
+                  <!-- /.post -->
+
+                  
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="timeline">
+                  <!-- The timeline -->
+                  <div class="timeline timeline-inverse">
+                  <% for(i=0;i<historial.length;i++){%>
+                    <!-- timeline time label -->
+                    <div class="time-label">
+                      <span class="bg-danger">
+                        <% let fecha= new Date(historial[i].fecha) %>
+                        <%=fecha.getDate()%>/
+                        <%=fecha.getMonth()+1%>/
+                        <%=fecha.getFullYear()%>
+                      </span>
+                    </div>
+                    <!-- /.timeline-label -->
+                  
+                    <!-- timeline item -->
+                    <div>
+                      <i class="fas fa-user bg-info"></i>
+
+                      <div class="timeline-item">
+                        <span class="time"><i class="far fa-clock"></i> <%=fecha.getHours()%>:<%=fecha.getMinutes()%>:<%=fecha.getSeconds()%></span>
+
+                        <h3 class="timeline-header border-0">
+                            <br>
+                            <strong>Diagnostico:</strong>
+                            <br>
+                            <a href="#"><%=historial[i].diagnostico%></a> 
+                            <br>
+                            <strong>Tratamiento:</strong>
+                            <br>
+                             <%=historial[i].tratamiento%>
+                            <br>
+                             <strong>Peso:</strong>
+                            <br>
+                             <%=historial[i].peso%>
+                        </h3>
+                      </div>
+                    </div>
+                    <!-- END timeline item -->
+                    <%}%>
+                    <div>
+                      <i class="far fa-clock bg-gray"></i>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+
+               
+                <!-- /.tab-pane -->
+              </div>
+              <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>

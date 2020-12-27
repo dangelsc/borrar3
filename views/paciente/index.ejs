@@ -1,0 +1,31 @@
+<% layout('../layout/modelo1') -%>
+<% block('titulo','Paciente') -%>
+<a href="/paciente/nuevo">
+    <i class="fas fa-plus"></i>
+</a>
+<table class="table table-bordered">
+    <tr>
+        <th>nombre</th>
+        <th>Apellidos</th>
+        <th>ci</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <% for(i=0;i<lista.length;i++){ %>
+    <tr>
+        <td><%=lista[i].nombre %></td>
+        <td><%=lista[i].apellidos %></td>
+        <td><%=lista[i].ci %></td>
+        <td><a href="/paciente/atender/<%= lista[i]._id %>">
+            <i class="fas fa-search"></i>
+        </a></td>
+        <td><a href="/paciente/edit/<%= lista[i]._id %>">
+            <i class="fas fa-edit"></i>
+        </a></td>
+        <td><a onclick="return confirm('esta seguro de borra')" 
+            href="/paciente/borrar/<%= lista[i]._id %>">
+            <i class="fas fa-trash"></i>
+        </a></td>
+    </tr>
+    <% }%>
+</table>

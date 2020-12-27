@@ -1,0 +1,13 @@
+var express = require('express');
+var router =  express.Router();
+var control = require('../controllers/paciente.controller');
+var acceso =require('../middleware/acceso');
+router.get('/',acceso,control.index);
+router.get('/nuevo',acceso,control.nuevo);
+router.post('/nuevo',acceso,control.nuevoPost);
+router.get('/edit/:id',acceso,control.edit);
+router.post('/edit/:id',acceso,control.editPost);
+router.get('/borrar/:id',acceso,control.borrar);
+router.get('/atender/:id',acceso,control.atenderForm);
+router.post('/atender/:id',acceso,control.atender);
+module.exports = router;
