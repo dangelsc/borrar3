@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
     userMod:{type:mongoose.Schema.Types.ObjectId,ref:'user'},
     detalle:[
         {
-            cant:Number,
+            cantidad:Number,
             precio:Number,
             producto:{type:mongoose.Schema.Types.ObjectId,ref:'producto'},
             importe:Number

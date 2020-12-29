@@ -1,32 +1,81 @@
 <% layout('../layout/modelo1') -%>
 <% block('titulo','Paciente') -%>
 
-<form action="/compra/nuevo" method="post">
-    <input type="text" name="proveedor" id="">
-    <input type="date" name="fecha" id="">
+<form ng-app="app" ng-controller="compras" action="/compra/nuevo" method="post">
+    <div class="" style="color:red">
+        <%=error%>
+    </div>
+    <input type="text" name="proveedor" >
     <br>
-    <div>
-        <select name="" id="producto">
-            <% for(i=0;i<productos.length;i++){%>
-            <option value="<%=productos[i]._id%>" ><%=productos[i].nombre  %></option>
-            <% }%>
-
+    <input type="date" name="fecha" >
+    <br>
+    <br>
+    <div ng-init="productosClient=<%= JSON.stringify(productos)%>">
+        producto
+        <select name="" 
+            ng-options="item as item.nombre for item in productosClient"
+        ng-model="producto">
         </select>
-        <input type="number" name="" id="cant">
-        <input type="button" onclick="
-            document.getElementById('lista').innerHTML=
-            document.getElementById('id').value;
-        " value="añadir">
-
-        <table>
+        precio: {{producto.precio}}
+        stock: {{producto.cantidad}}
+        cantidad
+        <input type="number" min="1"  max="{{producto.cantidad}}" ng-model="cant" name="" >
+        importe: {{producto.precio*cant}}
+        <br>
+        <input type="button" ng-click="onclickAdd()" value="añadir">
+        
+        <table class="table">
             <tr>
-                <td id="lista"> </td>
+                <th>Producto</th>
+                <th>precio</th>
+                <th>cantidad</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="elemento in carrito">
+                <td>{{elemento.producto.nombre}} </td>
+                <td>{{elemento.producto.precio}} </td>
+                <td>{{elemento.cantidad}} </td>
+                <td>{{elemento.importe}} </td>
+                <td><button ng-click="borrar(elemento)"><i class="fas fa-trash"></i> </button></td>
             </tr>
         </table>
     </div>
 
 
 
-    <input type="Number" name="total" id="">
+    total:{{total}}
+    <input type="hidden" name="total" value="{{total}}">
+    <input type="hidden" name="detalle" value="{{ carrito}}">
+<br>
+    <input type="submit" class="btn btn-success" value="Comprar">
 
 </form>
+<script src="/javascripts/angular.min.js"></script>
+<script >
+    var myapp = angular.module('app',[]);
+    myapp.controller('compras',function($scope){
+        $scope.carrito=[];
+        $scope.total=0;
+        /*$scope.cant=0;
+        $scope.producto={};*/
+        $scope.onclickAdd=function(){
+            let importe=$scope.cant*$scope.producto.precio;
+            $scope.total+=importe;
+            $scope.carrito.push({
+                producto:$scope.producto,
+                cantidad:$scope.cant,
+                importe:importe
+            });
+            let index=$scope.productosClient.indexOf($scope.producto);
+            $scope.productosClient.splice(index,1);
+        }
+        $scope.borrar=function(elemento){
+            let auxproducto=elemento.producto;
+            $scope.total-=elemento.importe;
+            $scope.carrito.splice($scope.carrito.indexOf(elemento),1);
+            $scope.productosClient.push(auxproducto);
+        }
+    })
+</script>
+
+
